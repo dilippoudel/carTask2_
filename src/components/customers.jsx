@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import AddCustomer from './addCustomer';
+import TrainingList from './trainingList';
 class Customers extends Component {
     constructor(props){
         super(props);
@@ -65,6 +66,9 @@ onDelClick = (link) => {
     .then(res => this.fetchCustomer())
     .catch(err => console.error(err))
   } 
+  addTrainings = () => {
+    console.log('added')
+  }
     render() {
         const columns = [{
             Header: 'Firstname',
@@ -92,19 +96,31 @@ onDelClick = (link) => {
             filterable: false,
             width: 100,
             accessor: 'links[0].href',
-            Cell: ({value}) => (<button onClick={()=>{this.confirmDelete(value)}}>Delete</button>)
+            Cell: ({value}) => (<button className = "btn btn-danger" onClick={()=>{this.confirmDelete(value)}}>Delete</button>)
+          },  {
+            id: 'addbutton',
+            sortable: false,
+            filterable: false,
+            width: 100,
+            accessor: 'links[0].href',
+            Cell: ({value}) => (<button className= "btn btn-primary" onClick={()=>{this.addTrainings(value)}}>Add Training</button>)
           }
-      
         ]
         return (
-            <div>
-              <AddCustomer addCustomer={this.addCustomer} fetchCustomer={this.fetchCustomer}/>
+            <div className = "row">
+            <div className="col-2">
+            <TrainingList />
+            </div>
+            <div className="col">
+            <AddCustomer addCustomer={this.addCustomer} fetchCustomer={this.fetchCustomer}/>
                 <ReactTable 
                 data = {this.state.customers} 
                 columns = {columns} 
                 filterable = {true}
                 defaultPageSize = {5}/>
                 <ToastContainer autoClose={1500} /> 
+            </div>
+        
             </div>
         );
     }

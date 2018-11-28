@@ -7,10 +7,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AddTrainings from './addTraining';
 import moment from 'moment';
+
 class Training extends Component {
     constructor(props){
         super(props);
-        this.state = {trainers : [], date: moment().format('LLLL')}
+        this.state = {trainers : [], date : moment().format('LLLL')}
     }
     componentDidMount(){
         this.fetchTraining();
@@ -70,7 +71,7 @@ class Training extends Component {
 
         render() {
             const columns = [{
-                Header: 'Date and Time',
+                Header: 'Date',
                 accessor: 'date',
                 sortable: true,
                 filterable : true,
@@ -90,7 +91,7 @@ class Training extends Component {
                 filterable: false,
                 width: 100,
                 accessor: 'links[0].href',
-                Cell: ({value}) => (<button onClick={()=>{this.confirmDelete(value)}}>Delete</button>)
+                Cell: ({value}) => (<button className = "btn btn-danger sm" onClick={()=>{this.confirmDelete(value)}}>Delete</button>)
               }
             ]
             return (

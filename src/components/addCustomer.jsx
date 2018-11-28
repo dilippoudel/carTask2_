@@ -44,7 +44,7 @@ class AddCustomer extends Component {
           </form>
         </SkyLight>
         <div>
-            <button style = {{'margin' : '10px'}} onClick = {() => this.refs.addDialog.show()}>New Customer</button>
+            <button className = "btn btn-primary" style = {{'margin' : '10px'}} onClick = {() => this.refs.addDialog.show()}>New Customer</button>
         </div>
             </div>
         );

@@ -3,7 +3,7 @@ import SkyLight from 'react-skylight';
 class AddTrainings extends Component {
     constructor(props){
         super(props);
-        this.state = {date : '', duration : '', activity : ''};
+        this.state = {date : '', duration : '', activity : '', customers: []};
     }
     
     handleSubmit = (event) => {
@@ -40,7 +40,7 @@ class AddTrainings extends Component {
           </form> 
         </SkyLight>
         <div>
-            <button style = {{'margin' : '10px'}} onClick = {() => this.refs.addDialog.show()}>New Training</button>
+            <button className = "btn btn-primary" style = {{'margin' : '10px'}} onClick = {() => this.refs.addDialog.show()}>New Training</button>
         </div>
             </div>
         );
