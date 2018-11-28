@@ -94,6 +94,7 @@ onDelClick = (link) => {
             accessor: 'links[0].href',
             Cell: ({value}) => (<button onClick={()=>{this.confirmDelete(value)}}>Delete</button>)
           }
+      
         ]
         return (
             <div>

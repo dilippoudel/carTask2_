@@ -6,11 +6,11 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AddTrainings from './addTraining';
-
+import moment from 'moment';
 class Training extends Component {
     constructor(props){
         super(props);
-        this.state = {trainers : []}
+        this.state = {trainers : [], date: moment().format('LLLL')}
     }
     componentDidMount(){
         this.fetchTraining();
@@ -70,8 +70,13 @@ class Training extends Component {
 
         render() {
             const columns = [{
-                Header: 'Date',
-                accessor: 'date'
+                Header: 'Date and Time',
+                accessor: 'date',
+                sortable: true,
+                filterable : true,
+                Cell: a => {
+                  return moment(a.updated_at).local().format("DD-MM-YYYY   hh:mm:ss a")
+                }
               }, {
                 Header: 'Duration',
                 accessor: 'duration'
