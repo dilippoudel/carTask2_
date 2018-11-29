@@ -7,10 +7,11 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import AddCustomer from './addCustomer';
 import TrainingList from './trainingList';
+import axios from 'axios';
 class Customers extends Component {
     constructor(props){
         super(props);
-        this.state = {customers : []}
+        this.state = {customers : [], selectedTraining:[],selectedCustomers:[], combined: []}
     }
 componentDidMount(){
     this.fetchCustomer();
@@ -66,9 +67,20 @@ onDelClick = (link) => {
     .then(res => this.fetchCustomer())
     .catch(err => console.error(err))
   } 
-  addTrainings = () => {
-    console.log('added')
+  addTrainings = async (value) => {
+    const {data: selectedCustomers} = await axios.get(value);
+    this.setState({selectedCustomers})
+    //console.log(selectedCustomers)
+    const combined = { ...this.state.selectedTraining, ...this.state.selectedCustomers} 
+    console.log(combined)
+    const {data} = await axios.post('https://customerrest.herokuapp.com/gettrainings', combined)
+    this.setState({combined:data})
+    this.setState({selectedTraining: ''})
   }
+  handleSelection = (m) => {
+    this.setState({selectedTraining: m})
+   // console.log(m)
+}
     render() {
         const columns = [{
             Header: 'Firstname',
@@ -109,7 +121,7 @@ onDelClick = (link) => {
         return (
             <div className = "row">
             <div className="col-2">
-            <TrainingList />
+            <TrainingList onItemSelection = {this.handleSelection} selectedTraining = {this.state.selectedTraining}/>
             </div>
             <div className="col">
             <AddCustomer addCustomer={this.addCustomer} fetchCustomer={this.fetchCustomer}/>

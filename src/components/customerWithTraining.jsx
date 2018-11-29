@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 class CustomerWithTraining extends Component {
    state = {customers : []}
-   async componentDidMount(){
+   async componentWillMount(){
      const {data} = await axios.get('https://customerrest.herokuapp.com/gettrainings')
-     console.log(data)
-     //this.setState({customers: data})
+     this.setState({customers: data})
    }
   render() {
     return (
@@ -30,14 +30,14 @@ class CustomerWithTraining extends Component {
         {this.state.customers.map(item  => (
  <tr key = {item.id}>
  <td>{item.customer.firstname}</td>
+ <td>{item.customer.lastname}</td>
  <td>{item.customer.streetaddress}</td>
  <td>{item.customer.postcode}</td>
- <td>{item.customer.lastname}</td>
  <td>{item.customer.city}</td>
  <td>{item.customer.phone}</td>
  <td>{item.activity}</td>
  <td>{item.duration}</td>
- <td>{item.date}</td>
+ <td>{moment(item.date).format("DD-MM-YYYY")}</td>
 </tr>
 ))}
       </tbody>
